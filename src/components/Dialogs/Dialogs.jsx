@@ -3,11 +3,7 @@ import styles from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem.jsx";
 import MessageItem from "./MessageItem/MessageItem.jsx";
 
-const Dialogs = ({ dialogsPage }) => {
-  //dialogsData
-
-  //messagesData
-
+const Dialogs = ({ dialogsPage, addNewMessage, updateNewMessageText }) => {
   const dialogsElements = dialogsPage.dialogsData.map((dialog) => (
     <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />
   ));
@@ -18,8 +14,12 @@ const Dialogs = ({ dialogsPage }) => {
   const textAreaRef = React.createRef();
 
   const buttonHandler = () => {
+    addNewMessage();
+  };
+
+  const onMessageChange = () => {
     const textMessage = textAreaRef.current.value;
-    console.log(textMessage);
+    updateNewMessageText(textMessage);
   };
 
   return (
@@ -28,7 +28,15 @@ const Dialogs = ({ dialogsPage }) => {
       <div>
         <ul className={styles["message-list"]}>{messageElements}</ul>
         <div>
-          <textarea ref={textAreaRef} name="message" id="" cols="30" rows="10"></textarea>
+          <textarea
+            onChange={onMessageChange}
+            value={dialogsPage.newMessageText}
+            ref={textAreaRef}
+            name="message"
+            id=""
+            cols="30"
+            rows="10"
+          ></textarea>
           <button onClick={buttonHandler}>Send</button>
         </div>
       </div>

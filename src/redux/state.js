@@ -13,6 +13,7 @@ const state = {
       { id: 2, message: "Hi" },
       { id: 3, message: "to learn more about each warning." },
     ],
+    newMessageText: "hello",
   },
   profilePage: {
     postData: [
@@ -25,6 +26,7 @@ const state = {
 };
 
 export const addNewPost = () => {
+  //add post to state and render it
   const newPost = {
     id: 5,
     message: state.profilePage.newPostText,
@@ -36,7 +38,23 @@ export const addNewPost = () => {
 };
 
 export const updateNewPostText = (newPostText) => {
+  //set new value in owr state
   state.profilePage.newPostText = newPostText;
+  renderEntireTree(state);
+};
+
+export const addNewMessage = () => {
+  const newMessage = {
+    id: 4,
+    message: state.dialogsPage.newMessageText,
+  };
+  state.dialogsPage.messagesData.push(newMessage);
+  state.dialogsPage.newMessageText = "";
+  renderEntireTree(state);
+};
+
+export const updateNewMessageText = (newMessageText) => {
+  state.dialogsPage.newMessageText = newMessageText;
   renderEntireTree(state);
 };
 
