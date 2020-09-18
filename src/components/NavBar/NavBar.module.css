@@ -1,0 +1,19 @@
+.nav {
+  grid-area: nav;
+  background-color: #888888;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.listItem a {
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.listItem a.active {
+  color: gold;
+}

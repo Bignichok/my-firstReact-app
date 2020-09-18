@@ -1,0 +1,19 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.active {
+  color: gold;
+}
+
+.dialogWrp {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+}
+
+.dialog-list {
+}
+
+.message-list {
+}
