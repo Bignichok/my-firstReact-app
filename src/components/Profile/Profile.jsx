@@ -4,7 +4,8 @@ import MyPosts from "./MyPosts/MyPosts";
 // import styles from "./Profile.module.css";
 import ProfileDescription from "./ProfileDescription/ProfileDescription";
 
-const Profile = ({ profilePage, addNewPost, updateNewPostText }) => {
+const Profile = ({ profilePage, dispatch }) => {
+  console.log(dispatch);
   return (
     <div>
       <BgImg />
@@ -12,8 +13,7 @@ const Profile = ({ profilePage, addNewPost, updateNewPostText }) => {
       <MyPosts
         newPostText={profilePage.newPostText}
         postData={profilePage.postData}
-        addNewPost={addNewPost}
-        updateNewPostText={updateNewPostText}
+        dispatch={dispatch}
       />
     </div>
   );

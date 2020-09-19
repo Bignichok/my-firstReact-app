@@ -10,13 +10,7 @@ import Settings from "./components/Settings/Settings";
 
 import { Route } from "react-router-dom";
 
-function App({
-  state,
-  addNewPost,
-  updateNewPostText,
-  addNewMessage,
-  updateNewMessageText,
-}) {
+function App({ state, dispatch }) {
   return (
     <div className="app-wrapper">
       <Header />
@@ -24,23 +18,11 @@ function App({
       <div className="app-wrapper__content">
         <Route
           path="/dialogs"
-          render={() => (
-            <Dialogs
-              dialogsPage={state.dialogsPage}
-              addNewMessage={addNewMessage}
-              updateNewMessageText={updateNewMessageText}
-            />
-          )}
+          render={() => <Dialogs dialogsPage={state.dialogsPage} dispatch={dispatch} />}
         />
         <Route
           path="/profile"
-          render={() => (
-            <Profile
-              profilePage={state.profilePage}
-              addNewPost={addNewPost}
-              updateNewPostText={updateNewPostText}
-            />
-          )}
+          render={() => <Profile profilePage={state.profilePage} dispatch={dispatch} />}
         />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />

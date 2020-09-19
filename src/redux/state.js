@@ -31,42 +31,35 @@ const store = {
   getState() {
     return this._state;
   },
-
-  addNewPost() {
-    //add post to state and render it
-    const newPost = {
-      id: 5,
-      message: this._state.profilePage.newPostText,
-      likes: 0,
-    };
-    this._state.profilePage.postData.push(newPost);
-    this._state.profilePage.newPostText = "";
-    this._callSubscriber(this._state);
-  },
-
-  updateNewPostText(newPostText) {
-    //set new value in owr state
-    this._state.profilePage.newPostText = newPostText;
-    this._callSubscriber(this._state);
-  },
-
-  addNewMessage() {
-    const newMessage = {
-      id: 4,
-      message: this._state.dialogsPage.newMessageText,
-    };
-    this._state.dialogsPage.messagesData.push(newMessage);
-    this._state.dialogsPage.newMessageText = "";
-    this._callSubscriber(this._state);
-  },
-
-  updateNewMessageText(newMessageText) {
-    this._state.dialogsPage.newMessageText = newMessageText;
-    this._callSubscriber(this._state);
-  },
-
   subscribe(observer) {
     this._callSubscriber = observer;
+  },
+
+  dispatch(action) {
+    if (action.type === "ADD-NEW-POST") {
+      const newPost = {
+        id: 5,
+        message: this._state.profilePage.newPostText,
+        likes: 0,
+      };
+      this._state.profilePage.postData.push(newPost);
+      this._state.profilePage.newPostText = "";
+      this._callSubscriber(this._state);
+    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+      this._state.profilePage.newPostText = action.newPostText;
+      this._callSubscriber(this._state);
+    } else if (action.type === "ADD-NEW-MESSAGE") {
+      const newMessage = {
+        id: 4,
+        message: this._state.dialogsPage.newMessageText,
+      };
+      this._state.dialogsPage.messagesData.push(newMessage);
+      this._state.dialogsPage.newMessageText = "";
+      this._callSubscriber(this._state);
+    } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
+      this._state.dialogsPage.newMessageText = action.newMessageText;
+      this._callSubscriber(this._state);
+    }
   },
 };
 

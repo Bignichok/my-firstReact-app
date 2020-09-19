@@ -4,7 +4,7 @@ import Post from "./Post/Post.jsx";
 
 //myPosts
 
-const MyPosts = ({ postData, addNewPost, newPostText, updateNewPostText }) => {
+const MyPosts = ({ postData, newPostText, dispatch }) => {
   const postsElements = postData.map((post) => (
     <Post key={post.id} message={post.message} likes={post.likes} />
   ));
@@ -12,12 +12,12 @@ const MyPosts = ({ postData, addNewPost, newPostText, updateNewPostText }) => {
   const textAreaRef = React.createRef(); //creating ref for text area
 
   const buttonHandler = () => {
-    addNewPost(); //we are rendering new post
+    dispatch({ type: "ADD-NEW-POST" }); //we are rendering new post
   };
 
   const onPostChange = () => {
     const postMessage = textAreaRef.current.value;
-    updateNewPostText(postMessage); //set every change in our text area to state
+    dispatch({ type: "UPDATE-NEW-POST-TEXT", newPostText: postMessage }); //set every change in our text area to state
   };
 
   return (

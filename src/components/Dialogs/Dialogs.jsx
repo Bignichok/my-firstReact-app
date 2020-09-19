@@ -3,7 +3,7 @@ import styles from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem.jsx";
 import MessageItem from "./MessageItem/MessageItem.jsx";
 
-const Dialogs = ({ dialogsPage, addNewMessage, updateNewMessageText }) => {
+const Dialogs = ({ dialogsPage, dispatch }) => {
   const dialogsElements = dialogsPage.dialogsData.map((dialog) => (
     <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />
   ));
@@ -14,12 +14,12 @@ const Dialogs = ({ dialogsPage, addNewMessage, updateNewMessageText }) => {
   const textAreaRef = React.createRef();
 
   const buttonHandler = () => {
-    addNewMessage();
+    dispatch({ type: "ADD-NEW-MESSAGE" });
   };
 
   const onMessageChange = () => {
     const textMessage = textAreaRef.current.value;
-    updateNewMessageText(textMessage);
+    dispatch({ type: "UPDATE-NEW-MESSAGE-TEXT", newMessageText: textMessage });
   };
 
   return (
