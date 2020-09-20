@@ -5,7 +5,6 @@ import MyPosts from "./MyPosts/MyPosts";
 import ProfileDescription from "./ProfileDescription/ProfileDescription";
 
 const Profile = ({ profilePage, dispatch }) => {
-  console.log(dispatch);
   return (
     <div>
       <BgImg />

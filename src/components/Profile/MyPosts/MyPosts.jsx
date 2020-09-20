@@ -1,21 +1,22 @@
 import React from "react";
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post.jsx";
-import { addPostActionCreator, onPostActionCreator } from "../../../redux/state";
+import {
+  addPostActionCreator,
+  onPostActionCreator,
+} from "../../../redux/profile-reducer";
 
 const MyPosts = ({ postData, newPostText, dispatch }) => {
   const postsElements = postData.map((post) => (
     <Post key={post.id} message={post.message} likes={post.likes} />
   ));
 
-  const textAreaRef = React.createRef(); //creating ref for text area
-
   const addPost = () => {
     dispatch(addPostActionCreator()); //we are rendering new post
   };
 
-  const onPostChange = () => {
-    const postMessage = textAreaRef.current.value;
+  const onPostChange = (e) => {
+    const postMessage = e.target.value;
     dispatch(onPostActionCreator(postMessage)); //set every change in our text area to state
   };
 
@@ -24,7 +25,6 @@ const MyPosts = ({ postData, newPostText, dispatch }) => {
       <textarea
         onChange={onPostChange} //listen changes in our UI
         value={newPostText} //set value from state(BLL)
-        ref={textAreaRef}
         name=""
         id=""
         cols="30"
