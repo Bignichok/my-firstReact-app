@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem.jsx";
 import MessageItem from "./MessageItem/MessageItem.jsx";
+import { addMessageActionCreator, onMessageChangeActionCreator } from "../../redux/state";
 
 const Dialogs = ({ dialogsPage, dispatch }) => {
   const dialogsElements = dialogsPage.dialogsData.map((dialog) => (
@@ -13,13 +14,13 @@ const Dialogs = ({ dialogsPage, dispatch }) => {
 
   const textAreaRef = React.createRef();
 
-  const buttonHandler = () => {
-    dispatch({ type: "ADD-NEW-MESSAGE" });
+  const addMessage = () => {
+    dispatch(addMessageActionCreator());
   };
 
   const onMessageChange = () => {
     const textMessage = textAreaRef.current.value;
-    dispatch({ type: "UPDATE-NEW-MESSAGE-TEXT", newMessageText: textMessage });
+    dispatch(onMessageChangeActionCreator(textMessage));
   };
 
   return (
@@ -37,7 +38,7 @@ const Dialogs = ({ dialogsPage, dispatch }) => {
             cols="30"
             rows="10"
           ></textarea>
-          <button onClick={buttonHandler}>Send</button>
+          <button onClick={addMessage}>Send</button>
         </div>
       </div>
     </div>

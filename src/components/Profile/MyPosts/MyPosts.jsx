@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post.jsx";
-
-//myPosts
+import { addPostActionCreator, onPostActionCreator } from "../../../redux/state";
 
 const MyPosts = ({ postData, newPostText, dispatch }) => {
   const postsElements = postData.map((post) => (
@@ -11,13 +10,13 @@ const MyPosts = ({ postData, newPostText, dispatch }) => {
 
   const textAreaRef = React.createRef(); //creating ref for text area
 
-  const buttonHandler = () => {
-    dispatch({ type: "ADD-NEW-POST" }); //we are rendering new post
+  const addPost = () => {
+    dispatch(addPostActionCreator()); //we are rendering new post
   };
 
   const onPostChange = () => {
     const postMessage = textAreaRef.current.value;
-    dispatch({ type: "UPDATE-NEW-POST-TEXT", newPostText: postMessage }); //set every change in our text area to state
+    dispatch(onPostActionCreator(postMessage)); //set every change in our text area to state
   };
 
   return (
@@ -31,7 +30,7 @@ const MyPosts = ({ postData, newPostText, dispatch }) => {
         cols="30"
         rows="10"
       ></textarea>
-      <button onClick={buttonHandler}>Add Post</button>
+      <button onClick={addPost}>Add Post</button>
       {postsElements}
     </div>
   );
