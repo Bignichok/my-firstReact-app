@@ -1,18 +1,19 @@
 import React from "react";
 import BgImg from "./BgImage/BgImage";
-import MyPosts from "./MyPosts/MyPosts";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 // import styles from "./Profile.module.css";
 import ProfileDescription from "./ProfileDescription/ProfileDescription";
 
-const Profile = ({ profilePage, dispatch }) => {
+const Profile = ({ store }) => {
   return (
     <div>
       <BgImg />
       <ProfileDescription />
-      <MyPosts
-        newPostText={profilePage.newPostText}
-        postData={profilePage.postData}
-        dispatch={dispatch}
+      <MyPostsContainer
+        store={store}
+        // newPostText={profilePage.newPostText}
+        // postData={profilePage.postData}
+        // dispatch={dispatch}
       />
     </div>
   );
