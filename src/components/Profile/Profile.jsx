@@ -9,12 +9,7 @@ const Profile = ({ store }) => {
     <div>
       <BgImg />
       <ProfileDescription />
-      <MyPostsContainer
-        store={store}
-        // newPostText={profilePage.newPostText}
-        // postData={profilePage.postData}
-        // dispatch={dispatch}
-      />
+      <MyPostsContainer store={store} />
     </div>
   );
 };
