@@ -7,6 +7,7 @@ import Profile from "./components/Profile/Profile.jsx";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import UsersContainer from "./components/Users/UsersContainer";
 
 import { Route } from "react-router-dom";
 
@@ -18,6 +19,7 @@ function App({ store }) {
       <div className="app-wrapper__content">
         <Route path="/dialogs" render={() => <DialogsContainer store={store} />} />
         <Route path="/profile" render={() => <Profile store={store} />} />
+        <Route path="/users" render={() => <UsersContainer />} />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />
         <Route path="/settings" component={Settings} />
