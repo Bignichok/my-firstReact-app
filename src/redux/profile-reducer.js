@@ -1,5 +1,6 @@
 const ADD_NEW_POST = "ADD-NEW-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 const initialState = {
   postData: [
@@ -8,6 +9,7 @@ const initialState = {
     { id: 3, message: "to learn more about each warning.", likes: 22 },
   ],
   newPostText: "",
+  profile: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -32,6 +34,10 @@ const profileReducer = (state = initialState, action) => {
       };
     }
 
+    case SET_USER_PROFILE: {
+      return { ...state, profile: action.profile };
+    }
+
     default:
       return state;
   }
@@ -43,4 +49,6 @@ export const addPostActionCreator = () => {
 export const onPostActionCreator = (postMessage) => {
   return { type: UPDATE_NEW_POST_TEXT, newPostText: postMessage };
 };
+export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
+
 export default profileReducer;

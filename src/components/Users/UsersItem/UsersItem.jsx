@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import defaultUserPhoto from "../../../assets/images/default-avatar.png";
 
 const UsersItem = ({
@@ -16,11 +17,13 @@ const UsersItem = ({
     <li>
       <h2>{name}</h2>
       <div>
-        <img
-          src={smallPhoto === null ? defaultUserPhoto : smallPhoto}
-          alt={name}
-          width="40px"
-        />
+        <NavLink to={`/profile/${id}`}>
+          <img
+            src={smallPhoto === null ? defaultUserPhoto : smallPhoto}
+            alt={name}
+            width="40px"
+          />
+        </NavLink>
       </div>
       <p>{status}</p>
       <p>

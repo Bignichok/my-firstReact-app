@@ -1,14 +1,37 @@
 import React from "react";
+import SocialLink from "./SocialLink";
 // import styles from "./ProfileInfo.module.css";
 
-const ProfileInfo = () => {
+const ProfileInfo = ({
+  aboutMe,
+  contacts,
+  lookingForAJob,
+  lookingForAJobDescription,
+  fullName,
+}) => {
+  const socialLinks = [];
+
+  for (const socialNetwork in contacts) {
+    if (contacts[socialNetwork]) {
+      socialLinks.push(
+        <SocialLink
+          key={contacts[socialNetwork]}
+          socialNetwork={socialNetwork}
+          link={contacts[socialNetwork]}
+        />
+      );
+    }
+  }
+
   return (
     <div>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, corporis.
-        Sapiente corrupti dicta blanditiis autem cum rerum quos error. Possimus officiis,
-        nemo exercitationem architecto perferendis obcaecati amet quisquam vel eum?
-      </p>
+      <h3>{fullName}</h3>
+      <p>{aboutMe}</p>
+      <ul>{socialLinks}</ul>
+      <div>
+        <p>{lookingForAJob ? "I am looking for a job" : "I have a job"}</p>
+        <p>{lookingForAJobDescription}</p>
+      </div>
     </div>
   );
 };
