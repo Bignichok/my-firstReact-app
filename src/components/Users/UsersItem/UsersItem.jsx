@@ -1,7 +1,7 @@
-import Axios from "axios";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import defaultUserPhoto from "../../../assets/images/default-avatar.png";
+import { usersAPI } from "../../../api/api";
 
 const UsersItem = ({ id, name, status, followed, smallPhoto, follow, unfollow }) => {
   return (
@@ -23,17 +23,8 @@ const UsersItem = ({ id, name, status, followed, smallPhoto, follow, unfollow })
       {followed ? (
         <button
           onClick={() => {
-            Axios.delete(
-              `https://social-network.samuraijs.com/api/1.0/follow/${id}`,
-
-              {
-                withCredentials: true,
-                headers: {
-                  "API-KEY": "97a59665-8234-4da3-8f8f-77eb6f3dc993",
-                },
-              }
-            ).then((resp) => {
-              if (resp.data.resultCode === 0) {
+            usersAPI.unfollowUser(id).then((data) => {
+              if (data.resultCode === 0) {
                 unfollow(id);
               }
             });
@@ -45,17 +36,8 @@ const UsersItem = ({ id, name, status, followed, smallPhoto, follow, unfollow })
       ) : (
         <button
           onClick={() => {
-            Axios.post(
-              `https://social-network.samuraijs.com/api/1.0/follow/${id}`,
-              {},
-              {
-                withCredentials: true,
-                headers: {
-                  "API-KEY": "97a59665-8234-4da3-8f8f-77eb6f3dc993",
-                },
-              }
-            ).then((resp) => {
-              if (resp.data.resultCode === 0) {
+            usersAPI.followUser(id).then((data) => {
+              if (data.resultCode === 0) {
                 follow(id);
               }
             });
