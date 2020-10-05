@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./Header.module.css";
+import { NavLink } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ isAuth, login }) => {
   return (
     <header className={styles.header}>
       <img
@@ -9,6 +10,9 @@ const Header = () => {
         alt="logo"
         width="50px"
       ></img>
+      <div className={styles.loginWrp}>
+        {isAuth ? login : <NavLink to={"/login"}>Login</NavLink>}
+      </div>
     </header>
   );
 };

@@ -16,8 +16,8 @@ const ProfileInfo = ({
       socialLinks.push(
         <SocialLink
           key={contacts[socialNetwork]}
-          socialNetwork={socialNetwork}
           link={contacts[socialNetwork]}
+          socialNetwork={socialNetwork}
         />
       );
     }

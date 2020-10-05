@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Header from "./components/Header/Header.jsx";
+import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import NavBar from "./components/NavBar/NavBar.jsx";
 import DialogsContainer from "./components/Dialogs/DialogsContainer.jsx";
 import News from "./components/News/News";
@@ -14,11 +14,14 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 function App({ store }) {
   return (
     <div className="app-wrapper">
-      <Header />
+      <HeaderContainer />
       <NavBar />
       <div className="app-wrapper__content">
         <Route path="/dialogs" render={() => <DialogsContainer store={store} />} />
-        <Route path="/profile" render={() => <ProfileContainer store={store} />} />
+        <Route
+          path="/profile/:userId?"
+          render={() => <ProfileContainer store={store} />}
+        />
         <Route path="/users" render={() => <UsersContainer />} />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />
