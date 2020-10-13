@@ -1,9 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import defaultUserPhoto from "../../../assets/images/default-avatar.png";
-import { usersAPI } from "../../../api/api";
 
-const UsersItem = ({ id, name, status, followed, smallPhoto, follow, unfollow }) => {
+
+
+const UsersItem = ({
+  id,
+  name,
+  status,
+  followed,
+  smallPhoto,
+  followingInProgress,
+  unFollowThunkCreator,
+  followThunkCreator
+}) => {
   return (
     <li>
       <h2>{name}</h2>
@@ -21,13 +31,10 @@ const UsersItem = ({ id, name, status, followed, smallPhoto, follow, unfollow })
         <span>{"location.city"}</span> <span>{"location.country"}</span>{" "}
       </p>
       {followed ? (
-        <button
+        <button 
+          disabled={followingInProgress.some((userId) => userId === id)}
           onClick={() => {
-            usersAPI.unfollowUser(id).then((data) => {
-              if (data.resultCode === 0) {
-                unfollow(id);
-              }
-            });
+           unFollowThunkCreator(id)
           }}
           type="button"
         >
@@ -35,12 +42,9 @@ const UsersItem = ({ id, name, status, followed, smallPhoto, follow, unfollow })
         </button>
       ) : (
         <button
+          disabled={followingInProgress.some((userId) => userId === id)}
           onClick={() => {
-            usersAPI.followUser(id).then((data) => {
-              if (data.resultCode === 0) {
-                follow(id);
-              }
-            });
+           followThunkCreator(id)
           }}
           type="button"
         >

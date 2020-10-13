@@ -4,12 +4,14 @@ import styles from "./Users.module.css";
 
 const Users = ({
   users,
-  follow,
-  unfollow,
+  followThunkCreator,
+  unFollowThunkCreator,
   currentPage,
   totalUsersCount,
   pageSize,
   onPageChanged,
+  toggleFollowingProgress,
+  followingInProgress,
 }) => {
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
   const pages = [];
@@ -25,8 +27,10 @@ const Users = ({
         status={user.status}
         followed={user.followed}
         smallPhoto={user.photos.small}
-        follow={follow}
-        unfollow={unfollow}
+        followThunkCreator={followThunkCreator}
+        unFollowThunkCreator={unFollowThunkCreator}
+        toggleFollowingProgress={toggleFollowingProgress}
+        followingInProgress={followingInProgress}
       />
     );
   });

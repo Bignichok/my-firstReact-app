@@ -10,6 +10,7 @@ const DialogItem = ({ id, name }) => {
       <NavLink key={id} to={path}>
         {name}
       </NavLink>
+      
     </li>
   );
 };

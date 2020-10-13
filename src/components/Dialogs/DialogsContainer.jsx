@@ -5,25 +5,7 @@ import {
 } from "../../redux/dialogs-reducer";
 import { connect } from "react-redux";
 
-// const DialogsContainer = ({ store }) => {
-//   const state = store.getState();
 
-//   const onAddMessage = () => {
-//     store.dispatch(addMessageActionCreator());
-//   };
-
-//   const onMessageChange = (textMessage) => {
-//     store.dispatch(onMessageChangeActionCreator(textMessage));
-//   };
-
-//   return (
-//     <Dialogs
-//       addMessage={onAddMessage}
-//       messageChange={onMessageChange}
-//       dialogsPage={state.dialogsPage}
-//     />
-//   );
-// };
 
 const mapStateToProps = (state) => {
   return {
