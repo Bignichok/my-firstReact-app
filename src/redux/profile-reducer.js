@@ -1,8 +1,9 @@
-import { usersAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 
 const ADD_NEW_POST = "ADD-NEW-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_USER_STATUS = "SET_USER_STATUS";
 
 const initialState = {
   postData: [
@@ -12,6 +13,7 @@ const initialState = {
   ],
   newPostText: "",
   profile: null,
+  status: "",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -40,11 +42,16 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, profile: action.profile };
     }
 
+    case SET_USER_STATUS: {
+      return { ...state, status: action.status };
+    }
+
     default:
       return state;
   }
 };
 
+//action creators
 export const addPostActionCreator = () => {
   return { type: ADD_NEW_POST };
 };
@@ -52,13 +59,39 @@ export const onPostActionCreator = (postMessage) => {
   return { type: UPDATE_NEW_POST_TEXT, newPostText: postMessage };
 };
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
+export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status });
 
+//thunk creators
 export const getUserProfileThunkCreator = (userId) => {
   return (dispatch) => {
-    usersAPI
+    profileAPI
       .getUserProfile(userId)
       .then((response) => {
         dispatch(setUserProfile(response.data));
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const getUserStatus = (userId) => {
+  return (dispatch) => {
+    profileAPI
+      .getStatus(userId)
+      .then((response) => {
+        dispatch(setUserStatus(response.data));
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const updateUserStatus = (status) => {
+  return (dispatch) => {
+    profileAPI
+      .updateStatus(status)
+      .then((response) => {
+        if (response.data.resultCode === 0) {
+          dispatch(setUserStatus(status));
+        }
       })
       .catch((err) => console.log(err));
   };

@@ -3,7 +3,8 @@ import styles from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem.jsx";
 import MessageItem from "./MessageItem/MessageItem.jsx";
 
-const Dialogs = ({ addMessage, messageChange, dialogsPage }) => {
+
+const Dialogs = ({ addMessage, messageChange, dialogsPage ,isAuth}) => {
   const dialogsElements = dialogsPage.dialogsData.map((dialog) => (
     <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />
   ));
@@ -20,6 +21,10 @@ const Dialogs = ({ addMessage, messageChange, dialogsPage }) => {
     const textMessage = e.target.value;
     messageChange(textMessage);
   };
+
+
+  
+
 
   return (
     <div className={styles.dialogWrp}>

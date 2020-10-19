@@ -23,8 +23,17 @@ export const usersAPI = {
   unfollowUser(id) {
     return instance.delete(`follow/${id}`).then((resp) => resp.data);
   },
+};
+
+export const profileAPI = {
   getUserProfile(userId) {
     return instance.get(`profile/${userId}`);
+  },
+  getStatus(userId) {
+    return instance.get(`profile/status/${userId}`);
+  },
+  updateStatus(status) {
+    return instance.put(`profile/status/`, { status: status });
   },
 };
 

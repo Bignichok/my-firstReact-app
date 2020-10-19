@@ -1,15 +1,15 @@
 import React from "react";
-import "./App.css";
+import { Route } from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer.jsx";
-import NavBar from "./components/NavBar/NavBar.jsx";
 import DialogsContainer from "./components/Dialogs/DialogsContainer.jsx";
+import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import NavBar from "./components/NavBar/NavBar.jsx";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
-
-import { Route } from "react-router-dom";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+import Login from "./components/Login/Login.jsx";
+import "./App.css";
 
 function App({ store }) {
   return (
@@ -23,6 +23,7 @@ function App({ store }) {
           render={() => <ProfileContainer store={store} />}
         />
         <Route path="/users" render={() => <UsersContainer />} />
+        <Route path="/login" render={() => <Login />} />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />
         <Route path="/settings" component={Settings} />

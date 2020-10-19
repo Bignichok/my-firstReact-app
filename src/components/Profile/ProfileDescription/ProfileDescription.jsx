@@ -3,8 +3,9 @@ import Preloader from "../../Preloader/Preloader";
 // import styles from "./ProfileDescription.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import ProfilePhoto from "./ProfilePhoto/ProfilePhoto";
+import ProfileStatus from './ProfileStatus/ProfileStatus'
 
-const ProfileDescription = ({ profile }) => {
+const ProfileDescription = ({ profile,updateUserStatus,status }) => {
   if (!profile) {
     return <Preloader />;
   }
@@ -12,6 +13,7 @@ const ProfileDescription = ({ profile }) => {
   return (
     <div>
       <ProfilePhoto photos={profile.photos} />
+      <ProfileStatus updateUserStatus={updateUserStatus} status={status}/>
       <ProfileInfo
         fullName={profile.fullName}
         aboutMe={profile.aboutMe}
