@@ -1,31 +1,18 @@
 import Dialogs from "./Dialogs.jsx";
-import {
-  addMessageActionCreator,
-  onMessageChangeActionCreator,
-} from "../../redux/dialogs-reducer";
+import {addMessageActionCreator} from "../../redux/dialogs-reducer";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 
-
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    addMessage: () => {
-      dispatch(addMessageActionCreator());
-    },
-
-    messageChange: (textMessage) => {
-      dispatch(onMessageChangeActionCreator(textMessage));
+    addMessage: (newMessageText) => {
+      dispatch(addMessageActionCreator(newMessageText));
     },
   };
 };
 
 const mapStateToProps = (state) => ({ dialogsPage: state.dialogsPage,});
-
-
-
-
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),

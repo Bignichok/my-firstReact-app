@@ -1,32 +1,39 @@
 import React from "react";
+import { Field, reduxForm } from "redux-form";
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post.jsx";
+import {requiredField,maxLengthCreator} from '../../../utils/validators'
+import { Textarea } from "../../common/FromsControls/FormsControls";
 
-const MyPosts = ({ updateNewPostText, addPost, newPostText, postData }) => {
+const maxLength30 = maxLengthCreator(30)
+
+const MyPostsForm = (props) => {
+  return(
+  <form onSubmit={props.handleSubmit}>
+    <div>
+        <Field component={Textarea} name="newPostText" placeholder="Write your post" validate={[requiredField,maxLength30]}/>
+    </div>
+    <button>Add Post</button>
+  </form>
+  )
+}
+
+const MyPostsFormRedux = reduxForm({form:"postsAddPostText"})(MyPostsForm)
+
+const MyPosts = ({ addPost, postData }) => {
   const postsElements = postData.map((post) => (
     <Post key={post.id} message={post.message} likes={post.likes} />
   ));
 
-  const onAddPost = () => {
-    addPost();
+  const onAddPost = (values) => {
+    addPost(values.newPostText);
   };
 
-  const onPostChange = (e) => {
-    const postMessage = e.target.value;
-    updateNewPostText(postMessage); //set every change in our text area to state
-  };
+
 
   return (
     <div className={styles.myPosts}>
-      <textarea
-        onChange={onPostChange} //listen changes in our UI
-        value={newPostText} //set value from state(BLL)
-        name=""
-        id=""
-        cols="30"
-        rows="10"
-      ></textarea>
-      <button onClick={onAddPost}>Add Post</button>
+      <MyPostsFormRedux onSubmit={onAddPost}/>
       {postsElements}
     </div>
   );

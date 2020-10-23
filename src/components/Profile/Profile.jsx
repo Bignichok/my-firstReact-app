@@ -6,8 +6,6 @@ import ProfileDescription from "./ProfileDescription/ProfileDescription";
 
 
 const Profile = ({ store, profile,updateUserStatus,status }) => {
-
-  
   return (
     <div>
       <BgImg />
