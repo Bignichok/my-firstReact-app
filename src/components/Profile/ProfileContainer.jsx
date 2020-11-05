@@ -12,7 +12,7 @@ class ProfileContainer extends Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     if (!userId) {
-      userId = 2;
+      userId = this.props.authorizedUserId;
     }
     this.props.getUserProfileThunkCreator(userId)
     this.props.getUserStatus(userId)
@@ -22,7 +22,10 @@ class ProfileContainer extends Component {
 
     return (
       <div>
-        <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
+        <Profile {...this.props}
+          profile={this.props.profile}
+          status={this.props.status}
+          updateUserStatus={this.props.updateUserStatus} />
       </div>
     );
   }
@@ -31,7 +34,9 @@ class ProfileContainer extends Component {
 
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
-  status: state.profilePage.status
+  status: state.profilePage.status,
+  authorizedUserId: state.auth.userId,
+  isAuth: state.auth.isAuth
 })
 
 
