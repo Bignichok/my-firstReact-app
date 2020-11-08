@@ -33,19 +33,17 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
   payload: { userId, email, login, isAuth },
 });
 
-export const getAuthUserData = () => {
-  return (dispatch) => {
-    authAPI
-      .authUser()
-      .then((response) => {
-        console.log(response);
-        if (response.data.resultCode === 0) {
-          const { id, email, login } = response.data.data;
-          dispatch(setAuthUserData(id, email, login, true));
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+export const getAuthUserData = () => (dispatch) => {
+  return authAPI
+    .authUser()
+    .then((response) => {
+      console.log(response);
+      if (response.data.resultCode === 0) {
+        const { id, email, login } = response.data.data;
+        dispatch(setAuthUserData(id, email, login, true));
+      }
+    })
+    .catch((err) => console.log(err));
 };
 
 export const login = (email, password, rememberMe) => (dispatch) => {
