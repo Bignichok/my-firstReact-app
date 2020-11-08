@@ -88,37 +88,32 @@ export const toggleFollowingProgress = (isFetching, userId) => ({
   userId,
 });
 
-export const getUsersThunkCreator = (currentPage, pageSize) => {
-  return (dispatch) => {
-    dispatch(toggleIsFetching(true));
-    usersAPI.getUsers(currentPage, pageSize).then((data) => {
-      dispatch(toggleIsFetching(false));
-      dispatch(setUsers(data.items));
-      dispatch(setTotalUsersCount(data.totalCount));
-    });
-  };
+export const getUsersThunkCreator = (page, pageSize) => (dispatch) => {
+  dispatch(toggleIsFetching(true));
+  usersAPI.getUsers(page, pageSize).then((data) => {
+    dispatch(setCurrentPage(page));
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
+  });
 };
 
-export const followThunkCreator = (userId) => {
-  return (dispatch) => {
-    dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.followUser(userId).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(follow(userId));
-      }
-      dispatch(toggleFollowingProgress(false, userId));
-    });
-  };
+export const followThunkCreator = (userId) => (dispatch) => {
+  dispatch(toggleFollowingProgress(true, userId));
+  usersAPI.followUser(userId).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(follow(userId));
+    }
+    dispatch(toggleFollowingProgress(false, userId));
+  });
 };
 
-export const unFollowThunkCreator = (userId) => {
-  return (dispatch) => {
-    dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.unfollowUser(userId).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(unfollow(userId));
-      }
-      dispatch(toggleFollowingProgress(false, userId));
-    });
-  };
+export const unFollowThunkCreator = (userId) => (dispatch) => {
+  dispatch(toggleFollowingProgress(true, userId));
+  usersAPI.unfollowUser(userId).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(unfollow(userId));
+    }
+    dispatch(toggleFollowingProgress(false, userId));
+  });
 };

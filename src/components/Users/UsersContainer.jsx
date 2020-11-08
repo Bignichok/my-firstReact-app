@@ -8,9 +8,15 @@ import {
   toggleFollowingProgress,
   getUsersThunkCreator
 } from "../../redux/users-reducer";
+import {getUsers,
+getPageSize,
+getTotalUsersCount,
+getCurrentPage,
+getIsFetching,
+getFollowingInProgress} from '../../redux/users-selectors'
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-// import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+
 
 
 
@@ -56,34 +62,19 @@ class UsersContainer extends Component {
   }
 }
 
+
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress,
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
   };
 };
 
-// const withRedirect = withAuthRedirect(UsersContainer)
 
-// export default connect(mapStateToProps, {
-//   followThunkCreator,
-//   unFollowThunkCreator,
-//   setCurrentPage,
-//   toggleFollowingProgress,
-//   getUsers: getUsersThunkCreator,
-// })(withRedirect);
-
-// export default compose(connect(mapStateToProps, {
-//   followThunkCreator,
-//   unFollowThunkCreator,
-//   setCurrentPage,
-//   toggleFollowingProgress,
-//   getUsers: getUsersThunkCreator,
-// }), withAuthRedirect)(UsersContainer)
 export default compose(connect(mapStateToProps, {
   followThunkCreator,
   unFollowThunkCreator,
