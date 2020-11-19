@@ -15,6 +15,7 @@ import { initializeApp } from "./redux/app-reducer";
 
 import "./App.css";
 import Preloader from "./components/common/Preloader/Preloader.js";
+import { getInitialized } from "./selectors/app-selectors.js";
 
 class App extends Component {
   componentDidMount() {
@@ -43,6 +44,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ initialized: state.app.initialized });
+const mapStateToProps = (state) => ({ initialized:getInitialized(state) });
 
 export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);

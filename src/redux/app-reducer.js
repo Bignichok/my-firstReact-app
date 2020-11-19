@@ -1,18 +1,15 @@
 import { getAuthUserData } from "./auth-reducer";
-
+import {Map} from 'immutable'
 const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
 
-const initialState = {
+const initialState = Map({
   initialized: false,
-};
+});
 
 const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case INITIALIZED_SUCCESS:
-      return {
-        ...state,
-        initialized: true,
-      };
+      return state.set("initialized", true)
 
     default:
       return state;
