@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { getUserProfileThunkCreator,getUserStatus,updateUserStatus } from "../../redux/profile-reducer";
 import Profile from "./Profile";
+import {getProfile,getStatus} from '../../selectors/profile-selectors'
+import { getIsAuth,getAuthorizedUserId } from "../../selectors/auth-selectors";
 
 
 class ProfileContainer extends Component {
@@ -35,10 +37,10 @@ class ProfileContainer extends Component {
 
 
 let mapStateToProps = (state) => ({
-  profile: state.profilePage.profile,
-  status: state.profilePage.status,
-  authorizedUserId: state.auth.userId,
-  isAuth: state.auth.isAuth
+  profile: getProfile(state),
+  status: getStatus(state),
+  authorizedUserId: getAuthorizedUserId(state),
+  isAuth: getIsAuth(state)
 })
 
 

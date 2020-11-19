@@ -3,6 +3,7 @@ import {addMessageActionCreator} from "../../redux/dialogs-reducer";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import {getDialogsPage} from '../../selectors/dialogs-selectors'
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -12,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const mapStateToProps = (state) => ({ dialogsPage: state.dialogsPage,});
+const mapStateToProps = (state) => ({ dialogsPage: getDialogsPage(state),});
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),

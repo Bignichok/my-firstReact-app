@@ -1,27 +1,29 @@
+import { Map } from "immutable";
 import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
-const initialState = {
+const initialState = Map({
   userId: null,
   email: null,
   login: null,
   isAuth: false,
   isFetching: false,
-};
+});
 
 const authReducer = (state = initialState, action) => {
+  console.log(state)
   switch (action.type) {
     case SET_USER_DATA:
-      return {
-        ...state,
-        ...action.payload,
-      };
+      return state.set('userId', action.payload.userId)
+      .set('email', action.payload.email)
+      .set('login',action.payload.login)
+      .set('isAuth', action.payload.isAuth)
 
     case TOGGLE_IS_FETCHING:
-      return { ...state, isFetching: action.isFetching };
+      return state.set( "isFetching", action.isFetching) ;
 
     default:
       return state;

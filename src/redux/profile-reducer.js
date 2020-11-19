@@ -1,4 +1,6 @@
 import { profileAPI } from "../api/api";
+import {Map} from 'immutable'
+import { v4 as uuidv4 } from 'uuid';
 
 const ADD_NEW_POST = "ADD-NEW-POST";
 const DELETE_POST = "DELETE_POST";
@@ -20,7 +22,7 @@ const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_NEW_POST: {
       const newPost = {
-        id: 5,
+        id: uuidv4(),
         message: action.newPostText,
         likes: 0,
       };
