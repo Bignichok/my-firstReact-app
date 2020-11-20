@@ -21,12 +21,12 @@ const Users = ({
   const usersListItems = users.map((user) => {
     return (
       <UsersItem
-        key={user.id}
-        id={user.id}
-        name={user.name}
-        status={user.status}
-        followed={user.followed}
-        smallPhoto={user.photos.small}
+        key={user.get("id")}
+        id={user.get('id')}
+        name={user.get('name')}
+        status={user.get('status')}
+        followed={user.get('followed')}
+        smallPhoto={user.getIn(['photos','small'])}
         followThunkCreator={followThunkCreator}
         unFollowThunkCreator={unFollowThunkCreator}
         toggleFollowingProgress={toggleFollowingProgress}
