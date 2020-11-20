@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./post.module.css";
 
-const Post = ({ message, likes }) => {
+const Post = ({post,onDeletePost}) => {
+  const message = post.get('message');
+  const likes = post.get('likes');
+  const postId = post.get('id')
   return (
     <div className={styles.post}>
       <img
@@ -13,8 +16,11 @@ const Post = ({ message, likes }) => {
       <div>
         <span>{likes}Likes</span>
       </div>
+      <button onClick={()=>onDeletePost(postId)}>Delete</button>
     </div>
   );
 };
+
+
 
 export default Post;

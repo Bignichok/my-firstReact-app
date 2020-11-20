@@ -2,6 +2,10 @@ import { v4 as uuidv4 } from 'uuid';
 import {fromJS,Map} from 'immutable';
 const ADD_NEW_MESSAGE = "ADD-NEW-MESSAGE";
 
+export const addMessageActionCreator = (newMessageText) => {
+  return { type: ADD_NEW_MESSAGE, newMessageText };
+};
+
 const initialState = fromJS({
   dialogsData: [
     { id: 1, name: "Nikita" },
@@ -28,10 +32,6 @@ const dialogsReducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
-
-export const addMessageActionCreator = (newMessageText) => {
-  return { type: ADD_NEW_MESSAGE, newMessageText };
 };
 
 export default dialogsReducer;

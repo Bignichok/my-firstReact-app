@@ -20,10 +20,9 @@ const MyPostsForm = (props) => {
 
 const MyPostsFormRedux = reduxForm({form:"postsAddPostText"})(MyPostsForm)
 
-const MyPosts = React.memo(({ addPost, postData }) => {
-  console.log("render");
+const MyPosts = React.memo(({ addPost,deletePost, postData }) => {
   const postsElements = postData.map((post) => (
-    <Post key={post.id} message={post.message} likes={post.likes} />
+    <Post key={post.id} post={post} onDeletePost={deletePost} />
   ));
 
   const onAddPost = (values) => {

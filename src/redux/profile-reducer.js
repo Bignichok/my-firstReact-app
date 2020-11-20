@@ -1,5 +1,5 @@
 import { profileAPI } from "../api/api";
-import {Map} from 'immutable'
+import {fromJS, Map} from 'immutable'
 import { v4 as uuidv4 } from 'uuid';
 
 const ADD_NEW_POST = "ADD-NEW-POST";
@@ -7,51 +7,9 @@ const DELETE_POST = "DELETE_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
 
-const initialState = {
-  postData: [
-    { id: 1, message: "hello", likes: 0 },
-    { id: 2, message: "Hi", likes: 15 },
-    { id: 3, message: "to learn more about each warning.", likes: 22 },
-  ],
 
-  profile: null,
-  status: "",
-};
 
-const profileReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_NEW_POST: {
-      const newPost = {
-        id: uuidv4(),
-        message: action.newPostText,
-        likes: 0,
-      };
 
-      return {
-        ...state,
-        postData: [...state.postData, newPost],
-      };
-    }
-
-    case DELETE_POST: {
-      return {
-        ...state,
-        postData: state.postData.filter((post) => post.id !== action.postId),
-      };
-    }
-
-    case SET_USER_PROFILE: {
-      return { ...state, profile: action.profile };
-    }
-
-    case SET_USER_STATUS: {
-      return { ...state, status: action.status };
-    }
-
-    default:
-      return state;
-  }
-};
 
 //action creators
 export const addPostActionCreator = (newPostText) => ({
@@ -90,6 +48,57 @@ export const updateUserStatus = (status) => (dispatch) => {
       }
     })
     .catch((err) => console.log(err));
+};
+
+const initialState = fromJS({
+  postData: {
+    1:{ id: 1, message: "hello", likes: 0 },
+    2:{ id: 2, message: "Hi", likes: 15 },
+    3:{ id: 3, message: "to learn more about each warning.", likes: 22 },
+  },
+
+  profile: null,
+  status: "",
+});
+
+const profileReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_NEW_POST: {
+      const newPost = Map({
+        id: uuidv4(),
+        message: action.newPostText,
+        likes: 0,
+      });
+
+      return state.setIn(['postData', newPost.get("id")], newPost)
+
+      // return {
+      //   ...state,
+      //   postData: [...state.postData, newPost],
+      // };
+    }
+
+    case DELETE_POST: {
+      return state.deleteIn(['postData', action.postId])
+      // return {
+      //   ...state,
+      //   postData: state.postData.filter((post) => post.id !== action.postId),
+      // };
+    }
+
+    case SET_USER_PROFILE: {
+      return state.set("profile", action.profile)
+      // return { ...state, profile: action.profile };
+    }
+
+    case SET_USER_STATUS: {
+      return state.set('status', action.status)
+      // return { ...state, status: action.status };
+    }
+
+    default:
+      return state;
+  }
 };
 
 export default profileReducer;

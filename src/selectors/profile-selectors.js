@@ -1,15 +1,5 @@
-export const getPostData=(state)=>{
-    return state.profilePage.postData
-}
+export const getPostData=(state)=> state.profilePage.get("postData");
 
-export const getNewPostText = (state)=>{
-    return state.profilePage.newPostText
-}
+export const getProfile = (state)=> state.profilePage.get('profile');
 
-export const getProfile = (state)=>{
-    return state.profilePage.profile
-}
-
-export const getStatus = (state)=>{
-    return state.profilePage.status
-}
+export const getStatus = (state)=> state.profilePage.get('status');

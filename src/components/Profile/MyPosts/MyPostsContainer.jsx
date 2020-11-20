@@ -1,12 +1,11 @@
 import MyPosts from "./MyPosts";
-import {addPostActionCreator} from "../../../redux/profile-reducer";
+import {addPostActionCreator,deletePostActionCreator} from "../../../redux/profile-reducer";
 import { connect } from "react-redux";
-import { getNewPostText,getPostData } from "../../../selectors/profile-selectors";
+import { getPostData } from "../../../selectors/profile-selectors";
 
 const mapStateToProps = (state) => {
   return {
     postData: getPostData(state),
-    newPostText: getNewPostText(state),
   };
 };
 
@@ -15,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
     addPost: (newPostText) => {
       dispatch(addPostActionCreator(newPostText));
     },
+    deletePost: (postId)=>{
+      dispatch(deletePostActionCreator(postId))
+    }
   };
 };
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
