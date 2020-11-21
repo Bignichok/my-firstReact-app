@@ -2,22 +2,22 @@ import profileReducer, {
   addPostActionCreator,
   deletePostActionCreator,
 } from "./profile-reducer";
-import React from "react";
+import { fromJS } from "immutable";
 
-const initialState = {
-  postData: [
-    { id: 1, message: "hello", likes: 0 },
-    { id: 2, message: "Hi", likes: 15 },
-    { id: 3, message: "to learn more about each warning.", likes: 22 },
-  ],
-};
+const initialState = fromJS({
+  postData: {
+    1: { id: 1, message: "hello", likes: 0 },
+    2: { id: 2, message: "Hi", likes: 15 },
+    3: { id: 3, message: "to learn more about each warning.", likes: 22 },
+  },
+});
 
-test("new post length should be 4", () => {
+test("new post size should be 4", () => {
   const action = addPostActionCreator("hello its from test");
 
   const newState = profileReducer(initialState, action);
 
-  expect(newState.postData.length).toBe(4);
+  expect(newState.get("postData").size).toBe(4);
 });
 
 test("new post message text should be correct", () => {
@@ -25,15 +25,17 @@ test("new post message text should be correct", () => {
 
   const newState = profileReducer(initialState, action);
 
-  expect(newState.postData[3].message).toBe("hello its from test");
+  expect(newState.getIn(["postData", "3", "message"])).toBe(
+    "to learn more about each warning."
+  );
 });
 
 test("new post length should be decrement", () => {
-  const action = deletePostActionCreator(1);
+  const action = deletePostActionCreator("1");
 
   const newState = profileReducer(initialState, action);
 
-  expect(newState.postData.length).toBe(2);
+  expect(newState.get("postData").size).toBe(2);
 });
 
 test("new post length should be immutable if id is not correct ", () => {
@@ -41,5 +43,5 @@ test("new post length should be immutable if id is not correct ", () => {
 
   const newState = profileReducer(initialState, action);
 
-  expect(newState.postData.length).toBe(newState.postData.length);
+  expect(newState.get("postData").size).toBe(newState.get("postData").size);
 });

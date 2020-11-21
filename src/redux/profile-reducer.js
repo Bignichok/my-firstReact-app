@@ -1,23 +1,25 @@
 import { profileAPI } from "../api/api";
-import {fromJS, Map} from 'immutable'
-import { v4 as uuidv4 } from 'uuid';
+import { fromJS, Map } from "immutable";
+import { v4 as uuidv4 } from "uuid";
 
 const ADD_NEW_POST = "ADD-NEW-POST";
 const DELETE_POST = "DELETE_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
 
-
-
-
-
 //action creators
 export const addPostActionCreator = (newPostText) => ({
   type: ADD_NEW_POST,
   newPostText,
 });
-export const deletePostActionCreator = (postId) => ({ type: DELETE_POST, postId });
-export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
+export const deletePostActionCreator = (postId) => ({
+  type: DELETE_POST,
+  postId,
+});
+export const setUserProfile = (profile) => ({
+  type: SET_USER_PROFILE,
+  profile,
+});
 export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status });
 
 //thunk creators
@@ -52,9 +54,9 @@ export const updateUserStatus = (status) => (dispatch) => {
 
 const initialState = fromJS({
   postData: {
-    1:{ id: 1, message: "hello", likes: 0 },
-    2:{ id: 2, message: "Hi", likes: 15 },
-    3:{ id: 3, message: "to learn more about each warning.", likes: 22 },
+    1: { id: 1, message: "hello", likes: 0 },
+    2: { id: 2, message: "Hi", likes: 15 },
+    3: { id: 3, message: "to learn more about each warning.", likes: 22 },
   },
 
   profile: null,
@@ -70,30 +72,19 @@ const profileReducer = (state = initialState, action) => {
         likes: 0,
       });
 
-      return state.setIn(['postData', newPost.get("id")], newPost)
-
-      // return {
-      //   ...state,
-      //   postData: [...state.postData, newPost],
-      // };
+      return state.setIn(["postData", newPost.get("id")], newPost);
     }
 
     case DELETE_POST: {
-      return state.deleteIn(['postData', action.postId])
-      // return {
-      //   ...state,
-      //   postData: state.postData.filter((post) => post.id !== action.postId),
-      // };
+      return state.deleteIn(["postData", action.postId]);
     }
 
     case SET_USER_PROFILE: {
-      return state.set("profile", action.profile)
-      // return { ...state, profile: action.profile };
+      return state.set("profile", action.profile);
     }
 
     case SET_USER_STATUS: {
-      return state.set('status', action.status)
-      // return { ...state, status: action.status };
+      return state.set("status", action.status);
     }
 
     default:
