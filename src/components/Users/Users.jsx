@@ -1,6 +1,7 @@
 import React from "react";
 import UsersItem from "./UsersItem/UsersItem";
-import styles from "./Users.module.css";
+import Pagination from "./Pagination";
+
 
 const Users = ({
   users,
@@ -13,13 +14,11 @@ const Users = ({
   toggleFollowingProgress,
   followingInProgress,
 }) => {
-  const pagesCount = Math.ceil(totalUsersCount / pageSize);
-  const pages = [];
-  for (let i = 1; i <= pagesCount; i += 1) {
-    pages.push(i);
-  }
-  const usersListItems = users.map((user) => {
-    return (
+
+  return (
+    <div>
+      <Pagination currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize} totalUsersCount={totalUsersCount}/>
+      <ul>{users.map((user) => 
       <UsersItem
         key={user.id}
         id={user.id}
@@ -32,23 +31,7 @@ const Users = ({
         toggleFollowingProgress={toggleFollowingProgress}
         followingInProgress={followingInProgress}
       />
-    );
-  });
-  return (
-    <div>
-      <div>
-        {pages.map((p) => (
-          <button
-            type="button"
-            key={p + "page"}
-            className={currentPage === p ? styles.selectedPage : ""}
-            onClick={() => onPageChanged(p)}
-          >
-            {p}
-          </button>
-        ))}
-      </div>
-      <ul>{usersListItems}</ul>
+    )}</ul>
     </div>
   );
 };

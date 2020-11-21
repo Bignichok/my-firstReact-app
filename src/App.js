@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Route, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { Route, withRouter, BrowserRouter } from "react-router-dom";
+import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import DialogsContainer from "./components/Dialogs/DialogsContainer.jsx";
@@ -12,9 +12,10 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Login from "./components/Login/Login.jsx";
 import { initializeApp } from "./redux/app-reducer";
+import Preloader from "./components/common/Preloader/Preloader.js";
+import store from "./redux/redux-store";
 
 import "./App.css";
-import Preloader from "./components/common/Preloader/Preloader.js";
 
 class App extends Component {
   componentDidMount() {
@@ -30,7 +31,10 @@ class App extends Component {
           <NavBar />
           <div className="app-wrapper__content">
             <Route path="/dialogs" render={() => <DialogsContainer />} />
-            <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+            <Route
+              path="/profile/:userId?"
+              render={() => <ProfileContainer />}
+            />
             <Route path="/users" render={() => <UsersContainer />} />
             <Route path="/login" render={() => <Login />} />
             <Route path="/news" component={News} />
@@ -45,4 +49,18 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({ initialized: state.app.initialized });
 
-export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+const AppContainer = compose(
+  withRouter,
+  connect(mapStateToProps, { initializeApp })
+)(App);
+
+const MainApp = (props) => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer store={store} />
+      </Provider>
+    </BrowserRouter>
+  );
+};
+export default MainApp;

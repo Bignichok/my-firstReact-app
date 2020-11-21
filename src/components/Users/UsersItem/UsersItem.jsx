@@ -14,6 +14,7 @@ const UsersItem = ({
   unFollowThunkCreator,
   followThunkCreator
 }) => {
+  
   return (
     <li>
       <h2>{name}</h2>
@@ -43,7 +44,7 @@ const UsersItem = ({
       ) : (
         <button
           disabled={followingInProgress.some((userId) => userId === id)}
-          onClick={() => {
+            onClick={() => {
            followThunkCreator(id)
           }}
           type="button"
