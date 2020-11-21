@@ -22,12 +22,12 @@ const AddMessageForm =(props)=>{
 const AddMessageFormRedux = reduxForm({form:'dialogAddMessageFrom'})(AddMessageForm)
 
 const Dialogs = ({ addMessage, dialogsPage ,isAuth}) => {
-  const dialogsElements = dialogsPage.dialogsData.map((dialog) => (
-    <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />
+  const dialogsElements = dialogsPage.get('dialogsData').map((dialog) => (
+    <DialogItem name={dialog.get('name')} key={dialog.get('id')} id={dialog.get('id')} />
   ));
 
-  const messageElements = dialogsPage.messagesData.map((message) => (
-    <MessageItem message={message.message} key={message.id} id={message.id} />
+  const messageElements = dialogsPage.get('messagesData').map((message) => (
+    <MessageItem message={message.get('message')} key={message.get('id')} id={message.get('id')} />
   ));
 
   const addNewMessage = (values) => {

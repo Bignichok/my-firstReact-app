@@ -1,32 +1,17 @@
+import { Map } from "immutable";
 import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
 const TOGGLE_IS_FETCHING = "auth/TOGGLE_IS_FETCHING";
 
-const initialState = {
+const initialState = Map({
   userId: null,
   email: null,
   login: null,
   isAuth: false,
   isFetching: false,
-};
-
-const authReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_USER_DATA:
-      return {
-        ...state,
-        ...action.payload,
-      };
-
-    case TOGGLE_IS_FETCHING:
-      return { ...state, isFetching: action.isFetching };
-
-    default:
-      return state;
-  }
-};
+});
 
 export const setAuthUserData = (userId, email, login, isAuth) => ({
   type: SET_USER_DATA,
@@ -50,7 +35,6 @@ export const login = (email, password, rememberMe) => (dispatch) => {
     .loginUser(email, password, rememberMe)
     .then((response) => {
       const data = response.data;
-
       if (data.resultCode === 0) {
         dispatch(getAuthUserData());
       } else {
@@ -72,6 +56,23 @@ export const logout = () => (dispatch) => {
       }
     })
     .catch((err) => console.log(err));
+};
+
+const authReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_USER_DATA:
+      return state
+        .set("userId", action.payload.userId)
+        .set("email", action.payload.email)
+        .set("login", action.payload.login)
+        .set("isAuth", action.payload.isAuth);
+
+    case TOGGLE_IS_FETCHING:
+      return state.set("isFetching", action.isFetching);
+
+    default:
+      return state;
+  }
 };
 
 export default authReducer;

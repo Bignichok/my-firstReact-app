@@ -1,23 +1,7 @@
 import { getAuthUserData } from "./auth-reducer";
-
+import {Map} from 'immutable'
 const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
 
-const initialState = {
-  initialized: false,
-};
-
-const appReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case INITIALIZED_SUCCESS:
-      return {
-        ...state,
-        initialized: true,
-      };
-
-    default:
-      return state;
-  }
-};
 
 export const InitializedSuccess = () => ({
   type: INITIALIZED_SUCCESS,
@@ -26,5 +10,20 @@ export const InitializedSuccess = () => ({
 export const initializeApp = () => (dispatch) => {
   Promise.all([dispatch(getAuthUserData())]).then(() => dispatch(InitializedSuccess()));
 };
+
+const initialState = Map({
+  initialized: false,
+});
+
+const appReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case INITIALIZED_SUCCESS:
+      return state.set("initialized", true)
+
+    default:
+      return state;
+  }
+};
+
 
 export default appReducer;

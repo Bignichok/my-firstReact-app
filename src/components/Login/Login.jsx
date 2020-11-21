@@ -6,6 +6,7 @@ import { requiredField } from '../../utils/validators';
 import {login} from '../../redux/auth-reducer'
 import { Redirect } from 'react-router-dom';
 import styles from '../common/FromsControls/FormsControls.module.css'
+import {getIsAuth,getIsFetching} from '../../selectors/auth-selectors'
 
 const LoginForm = ({handleSubmit,error}) => {
    
@@ -53,8 +54,8 @@ const Login = ({login,isAuth}) => {
 
 const mapStateToProps = (state) => {
     return {
-    isAuth: state.auth.isAuth,
-    isFetching: state.auth.isFetching,
+    isAuth: getIsAuth(state),
+    isFetching: getIsFetching(state),
   };
 };
 

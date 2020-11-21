@@ -13,7 +13,7 @@ getPageSize,
 getTotalUsersCount,
 getCurrentPage,
 getIsFetching,
-getFollowingInProgress} from '../../redux/users-selectors'
+getFollowingInProgress} from '../../selectors/users-selectors'
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 
