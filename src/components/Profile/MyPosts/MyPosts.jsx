@@ -4,6 +4,7 @@ import styles from "./MyPosts.module.css";
 import Post from "./Post/Post.jsx";
 import {requiredField,maxLengthCreator} from '../../../utils/validators'
 import { Textarea } from "../../common/FromsControls/FormsControls";
+import { v4 as uuidv4 } from "uuid";
 
 const maxLength30 = maxLengthCreator(30)
 
@@ -22,7 +23,7 @@ const MyPostsFormRedux = reduxForm({form:"postsAddPostText"})(MyPostsForm)
 
 const MyPosts = React.memo(({ addPost,deletePost, postData }) => {
   const postsElements = postData.map((post) => (
-    <Post key={post.id} post={post} onDeletePost={deletePost} />
+    <Post key={uuidv4()} post={post} onDeletePost={deletePost} />
   ));
 
   const onAddPost = (values) => {

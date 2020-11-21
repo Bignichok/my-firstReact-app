@@ -1,6 +1,6 @@
 import React from "react";
 import UsersItem from "./UsersItem/UsersItem";
-import Pagination from "./Pagination";
+import Pagination from "../common/Pagination/Pagination";
 
 
 const Users = ({
