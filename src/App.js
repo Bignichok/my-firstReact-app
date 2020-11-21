@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Route, withRouter, BrowserRouter } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
+import store from "./redux/redux-store";
+import { initializeApp } from "./redux/app-reducer";
+import { getInitialized } from "./selectors/app-selectors.js";
 import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import DialogsContainer from "./components/Dialogs/DialogsContainer.jsx";
 import UsersContainer from "./components/Users/UsersContainer";
@@ -11,13 +14,8 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Login from "./components/Login/Login.jsx";
-import { initializeApp } from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader.js";
-import store from "./redux/redux-store";
-
 import "./App.css";
-import Preloader from "./components/common/Preloader/Preloader.js";
-import { getInitialized } from "./selectors/app-selectors.js";
 
 class App extends Component {
   componentDidMount() {
