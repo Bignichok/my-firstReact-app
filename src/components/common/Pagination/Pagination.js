@@ -38,7 +38,7 @@ const Pagination = ({
   }
   return (
     <div className="paginationBtn">
-      {totalPages && currentPage != 1 && (
+      {totalPages && currentPage !== 1 && (
         <button
           type="button"
           key={currentPage + "firstPage"}
@@ -61,7 +61,7 @@ const Pagination = ({
           </button>
         ))}
 
-      {totalPages && currentPage != totalPages && (
+      {totalPages && currentPage !== totalPages && (
         <button
           type="button"
           key={currentPage + "lastPage"}
