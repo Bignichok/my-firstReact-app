@@ -7,14 +7,14 @@ import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 // import ProfileStatus from './ProfileStatus/ProfileStatus'
 
 
-const ProfileDescription = ({ profile,updateUserStatus,status }) => {
+const ProfileDescription = ({ profile,updateUserStatus,status,isOwner }) => {
   if (!profile) {
     return <Preloader />;
   }
 
   return (
     <div>
-      <ProfilePhoto photos={profile.photos} />
+      <ProfilePhoto photos={profile.photos} isOwner={isOwner} />
       <ProfileStatusWithHooks updateUserStatus={updateUserStatus} status={status}/>
       <ProfileInfo
         fullName={profile.fullName}

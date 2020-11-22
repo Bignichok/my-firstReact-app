@@ -11,7 +11,19 @@ import { getIsAuth,getAuthorizedUserId } from "../../selectors/auth-selectors";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    let userId = this.props.match.params.userId;
+   this.refreshProfile()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const prevUserId = prevProps.match.params.userId
+    const nextUserId = this.props.match.params.userId;
+    if (prevUserId !== nextUserId) {
+      this.refreshProfile()
+    }
+  }
+
+  refreshProfile = () => {
+       let userId = this.props.match.params.userId;
     if (!userId) {
       userId = this.props.authorizedUserId;
       if (!userId) {
@@ -27,6 +39,7 @@ class ProfileContainer extends Component {
     return (
       <div>
         <Profile {...this.props}
+          isOwner={!this.props.match.params.userId}
           profile={this.props.profile}
           status={this.props.status}
           updateUserStatus={this.props.updateUserStatus} />

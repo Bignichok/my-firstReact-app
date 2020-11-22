@@ -5,11 +5,11 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileDescription from "./ProfileDescription/ProfileDescription";
 
 
-const Profile = ({ store, profile,updateUserStatus,status }) => {
+const Profile = ({ store, profile,updateUserStatus,status,isOwner}) => {
   return (
     <div>
       <BgImg />
-      <ProfileDescription  profile={profile} updateUserStatus={updateUserStatus} status={status} />
+      <ProfileDescription isOwner={isOwner}  profile={profile} updateUserStatus={updateUserStatus} status={status} />
       <MyPostsContainer store={store} />
     </div>
   );
