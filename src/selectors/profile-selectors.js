@@ -1,5 +1,7 @@
-export const getPostData=(state)=> state.profilePage.get("postData");
+import {  Map } from "immutable";
 
-export const getProfile = (state)=> state.profilePage.get('profile');
+export const getPostData=(state)=> state.profilePage.get("postData", Map());
 
-export const getStatus = (state)=> state.profilePage.get('status');
+export const getProfile = (state)=> state.profilePage.get('profile',null);
+
+export const getStatus = (state)=> state.profilePage.get('status', '');

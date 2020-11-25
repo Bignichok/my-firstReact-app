@@ -146,62 +146,51 @@ export const usersReducer = (state = initialState, action) => {
     case FOLLOW:
       return state.update("users", (users) =>
         users.map((user) => {
-          console.log(user);
-          return user.id === action.userId ? user.set("followed", true) : user;
+          return user.get('id') === action.userId ? user.set("followed", true) : user;
         })
       );
-    // return {
-    //   ...state,
-    //   users: state.users.map((user) =>
-    //     user.id === action.userId ? { ...user, followed: true } : user
-    //   ),
-    // };
+
 
     case UNFOLLOW:
       return state.update("users", (users) =>
         users.map((user) =>
-          user.id === action.userId ? user.set("followed", false) : user
+        user.get('id') === action.userId ? user.set("followed", false) : user
         )
       );
-    // return {
-    //   ...state,
-    //   users: state.users.map((user) =>
-    //     user.id === action.userId ? { ...user, followed: false } : user
-    //   ),
-    // };
+
 
     case SET_USERS:
       return state.set("users", fromJS(action.users));
-    // return { ...state, users: [...action.users] };
+
 
     case SET_CURRENT_PAGE:
       return state.set("currentPage", action.currentPage);
-    // return { ...state, currentPage: action.currentPage };
+
 
     case SET_TOTAL_USERS_COUNT:
       return state.set("totalUsersCount", action.totalUsersCount);
-    // return { ...state, totalUsersCount: action.totalUsersCount };
+
 
     case TOGGLE_IS_FETCHING:
       return state.set("isFetching", action.isFetching);
-    // return { ...state, isFetching: action.isFetching };
+
 
     case TOGGLE_IS_FOLLOWING_PROGRESS:
       return state.update("followingInProgress", (followingInProgress) => {
         console.log(followingInProgress.size);
-        if (followingInProgress.size) {
-          console.log(1);
+        console.log(action)
+     
+        if ( action.isFetching) {
+      
           return followingInProgress.push(action.userId);
-        } else {
-          console.log(2);
+        } else  {
+   
+          followingInProgress.push(action.userId);
           return followingInProgress.filter((id) => id !== action.userId);
         }
       });
 
-    // return {
-    // ...state,
-    // followingInProgress ? [...state.followingInProgress, action.userId] : state.followingInProgress.filter((id) => id !== action.userId),
-    // };
+
 
     default:
       return state;

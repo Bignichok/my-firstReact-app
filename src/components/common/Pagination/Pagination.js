@@ -11,12 +11,14 @@ const Pagination = ({
   const [totalPages, setTotalPages] = useState(1);
   const [maxLeftPage, setMaxLeftPage] = useState(1);
   const [maxRightPage, setMaxRightPage] = useState(1);
+  // const [visibleButtons,setVisibleButtons] = useState([])
 
   useEffect(() => {
     setTotalPages(Math.ceil(totalUsersCount / pageSize));
     setMaxLeftPage(currentPage - Math.floor(countOfVisibleButtons / 2));
     setMaxRightPage(currentPage + Math.floor(countOfVisibleButtons / 2));
-  }, [maxLeftPage]);
+  }, [countOfVisibleButtons, currentPage, maxLeftPage, pageSize, totalUsersCount]);
+  
 
   if (maxLeftPage < 1) {
     setMaxLeftPage(1);
@@ -31,7 +33,6 @@ const Pagination = ({
     setMaxRightPage(totalPages);
   }
 
-  // ?????
   const visibleButtons = [];
   for (let page = maxLeftPage; page <= maxRightPage; page++) {
     visibleButtons.push(page);
@@ -48,6 +49,7 @@ const Pagination = ({
           first
         </button>
       )}
+
 
       {totalPages &&
         visibleButtons.map((p) => (
