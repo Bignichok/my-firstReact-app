@@ -33,7 +33,17 @@ export const profileAPI = {
     return instance.get(`profile/status/${userId}`);
   },
   updateStatus(status) {
-    return instance.put(`profile/status/`, { status: status });
+    return instance.put(`profile/status/`, { status });
+  },
+  updatePhoto(photo) {
+    const formData = new FormData();
+    formData.append("image", photo);
+    console.log(formData);
+    return instance.put(`profile/photo/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
 };
 

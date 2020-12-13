@@ -1,7 +1,4 @@
-import profileReducer, {
-  addPostActionCreator,
-  deletePostActionCreator,
-} from "./profile-reducer";
+import profileReducer, { addPostSuccess, deletePostSuccess } from "./profile-reducer";
 import { fromJS } from "immutable";
 
 const initialState = fromJS({
@@ -13,7 +10,7 @@ const initialState = fromJS({
 });
 
 test("new post size should be 4", () => {
-  const action = addPostActionCreator("hello its from test");
+  const action = addPostSuccess("hello its from test");
 
   const newState = profileReducer(initialState, action);
 
@@ -21,7 +18,7 @@ test("new post size should be 4", () => {
 });
 
 test("new post message text should be correct", () => {
-  const action = addPostActionCreator("hello its from test");
+  const action = addPostSuccess("hello its from test");
 
   const newState = profileReducer(initialState, action);
 
@@ -31,7 +28,7 @@ test("new post message text should be correct", () => {
 });
 
 test("new post length should be decrement", () => {
-  const action = deletePostActionCreator("1");
+  const action = deletePostSuccess("1");
 
   const newState = profileReducer(initialState, action);
 
@@ -39,7 +36,7 @@ test("new post length should be decrement", () => {
 });
 
 test("new post length should be immutable if id is not correct ", () => {
-  const action = deletePostActionCreator(1000);
+  const action = deletePostSuccess(1000);
 
   const newState = profileReducer(initialState, action);
 

@@ -146,51 +146,43 @@ export const usersReducer = (state = initialState, action) => {
     case FOLLOW:
       return state.update("users", (users) =>
         users.map((user) => {
-          return user.get('id') === action.userId ? user.set("followed", true) : user;
+          return user.get("id") === action.userId
+            ? user.set("followed", true)
+            : user;
         })
       );
-
 
     case UNFOLLOW:
       return state.update("users", (users) =>
         users.map((user) =>
-        user.get('id') === action.userId ? user.set("followed", false) : user
+          user.get("id") === action.userId ? user.set("followed", false) : user
         )
       );
-
 
     case SET_USERS:
       return state.set("users", fromJS(action.users));
 
-
     case SET_CURRENT_PAGE:
       return state.set("currentPage", action.currentPage);
-
 
     case SET_TOTAL_USERS_COUNT:
       return state.set("totalUsersCount", action.totalUsersCount);
 
-
     case TOGGLE_IS_FETCHING:
       return state.set("isFetching", action.isFetching);
-
 
     case TOGGLE_IS_FOLLOWING_PROGRESS:
       return state.update("followingInProgress", (followingInProgress) => {
         console.log(followingInProgress.size);
-        console.log(action)
-     
-        if ( action.isFetching) {
-      
+        console.log(action);
+
+        if (action.isFetching) {
           return followingInProgress.push(action.userId);
-        } else  {
-   
+        } else {
           followingInProgress.push(action.userId);
           return followingInProgress.filter((id) => id !== action.userId);
         }
       });
-
-
 
     default:
       return state;

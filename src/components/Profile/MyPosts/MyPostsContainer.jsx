@@ -1,5 +1,5 @@
 import MyPosts from "./MyPosts";
-import {addPostActionCreator,deletePostActionCreator} from "../../../redux/profile-reducer";
+import { addPostSuccess, deletePostSuccess } from "../../../redux/profile-reducer";
 import { connect } from "react-redux";
 import { getPostData } from "../../../selectors/profile-selectors";
 
@@ -12,11 +12,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addPost: (newPostText) => {
-      dispatch(addPostActionCreator(newPostText));
+      dispatch(addPostSuccess(newPostText));
     },
-    deletePost: (postId)=>{
-      dispatch(deletePostActionCreator(postId))
-    }
+    deletePost: (postId) => {
+      dispatch(deletePostSuccess(postId));
+    },
   };
 };
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);

@@ -2,32 +2,52 @@ import { profileAPI } from "../api/api";
 import { fromJS, Map } from "immutable";
 import { v4 as uuidv4 } from "uuid";
 
-const ADD_NEW_POST = "ADD-NEW-POST";
-const DELETE_POST = "DELETE_POST";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_USER_STATUS = "SET_USER_STATUS";
+// const ADD_NEW_POST_REQUEST = "ADD_NEW_POST_REQUEST";
+const ADD_NEW_POST_SUCCESS = "ADD_NEW_POST_SUCCESS";
+// const ADD_NEW_POST_ERROR = "ADD_NEW_POST_ERROR";
+
+// const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
+const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
+// const DELETE_POST_ERROR = "DELETE_POST_ERROR";
+
+// const SET_USER_PROFILE_REQUEST = "SET_USER_PROFILE_REQUEST";
+const SET_USER_PROFILE_SUCCESS = "SET_USER_PROFILE_SUCCESS";
+// const SET_USER_PROFILE_ERROR = "SET_USER_PROFILE_ERROR";
+
+// const SET_USER_STATUS_REQUEST = "SET_USER_STATUS_REQUEST";
+const SET_USER_STATUS_SUCCESS = "SET_USER_STATUS_SUCCESS";
+// const SET_USER_STATUS_ERROR = "SET_USER_STATUS_ERROR";
+
+// const SET_USER_PHOTO_REQUEST = "SET_USER_PHOTO_REQUEST";
+const SET_USER_PHOTO_SUCCESS = "SET_USER_PHOTO_SUCCESS";
+// const SET_USER_PHOTO_ERROR = "SET_USER_PHOTO_ERROR";
 
 //action creators
-export const addPostActionCreator = (newPostText) => ({
-  type: ADD_NEW_POST,
+export const addPostSuccess = (newPostText) => ({
+  type: ADD_NEW_POST_SUCCESS,
   newPostText,
 });
-export const deletePostActionCreator = (postId) => ({
-  type: DELETE_POST,
+export const deletePostSuccess = (postId) => ({
+  type: DELETE_POST_SUCCESS,
   postId,
 });
-export const setUserProfile = (profile) => ({
-  type: SET_USER_PROFILE,
+export const setUserProfileSuccess = (profile) => ({
+  type: SET_USER_PROFILE_SUCCESS,
   profile,
 });
-export const setUserStatus = (status) => ({ type: SET_USER_STATUS, status });
+export const setUserStatusSuccess = (status) => ({
+  type: SET_USER_STATUS_SUCCESS,
+  status,
+});
+
+export const setUserPhotoSuccess = (photo) => ({ type: SET_USER_PHOTO_SUCCESS, photo });
 
 //thunk creators
 export const getUserProfileThunkCreator = (userId) => (dispatch) => {
   profileAPI
     .getUserProfile(userId)
     .then((response) => {
-      dispatch(setUserProfile(response.data));
+      dispatch(setUserProfileSuccess(response.data));
     })
     .catch((err) => console.log(err));
 };
@@ -36,7 +56,7 @@ export const getUserStatus = (userId) => (dispatch) => {
   profileAPI
     .getStatus(userId)
     .then((response) => {
-      dispatch(setUserStatus(response.data));
+      dispatch(setUserStatusSuccess(response.data));
     })
     .catch((err) => console.log(err));
 };
@@ -46,7 +66,18 @@ export const updateUserStatus = (status) => (dispatch) => {
     .updateStatus(status)
     .then((response) => {
       if (response.data.resultCode === 0) {
-        dispatch(setUserStatus(status));
+        dispatch(setUserStatusSuccess(status));
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+export const updateUserPhoto = (photo) => (dispatch) => {
+  profileAPI
+    .updatePhoto(photo)
+    .then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(setUserPhotoSuccess(response.data.data.photos));
       }
     })
     .catch((err) => console.log(err));
@@ -65,7 +96,7 @@ const initialState = fromJS({
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_NEW_POST: {
+    case ADD_NEW_POST_SUCCESS: {
       const newPost = Map({
         id: uuidv4(),
         message: action.newPostText,
@@ -75,16 +106,20 @@ const profileReducer = (state = initialState, action) => {
       return state.setIn(["postData", newPost.get("id")], newPost);
     }
 
-    case DELETE_POST: {
+    case DELETE_POST_SUCCESS: {
       return state.deleteIn(["postData", action.postId]);
     }
 
-    case SET_USER_PROFILE: {
+    case SET_USER_PROFILE_SUCCESS: {
       return state.set("profile", action.profile);
     }
 
-    case SET_USER_STATUS: {
+    case SET_USER_STATUS_SUCCESS: {
       return state.set("status", action.status);
+    }
+
+    case SET_USER_PHOTO_SUCCESS: {
+      return state.setIn(["profile", "photos"], action.photo);
     }
 
     default:

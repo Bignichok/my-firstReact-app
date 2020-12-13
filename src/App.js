@@ -2,16 +2,18 @@ import React, { Component } from "react";
 import { Route, withRouter, BrowserRouter } from "react-router-dom";
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
-import store from "./redux/redux-store";
+
 import { initializeApp } from "./redux/app-reducer";
 import { getInitialized } from "./selectors/app-selectors.js";
-import HeaderContainer from "./components/Header/HeaderContainer.jsx";
+import withSuspense from "./hoc/withSuspense";
+import store from "./redux/redux-store";
+
 import NavBar from "./components/NavBar/NavBar.jsx";
+import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Preloader from "./components/common/Preloader/Preloader.js";
-import withSuspense from "./hoc/withSuspense";
 import "./App.css";
 
 const DialogsContainer = React.lazy(() =>
