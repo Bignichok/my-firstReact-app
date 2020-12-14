@@ -31,6 +31,7 @@ const ProfileDescription = ({
         contacts={profile.contacts}
         lookingForAJob={profile.lookingForAJob}
         lookingForAJobDescription={profile.lookingForAJobDescription}
+        isOwner={isOwner}
       />
     </div>
   );
